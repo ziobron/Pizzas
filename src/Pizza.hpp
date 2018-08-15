@@ -1,10 +1,10 @@
 #pragma once
+#include "IClock.hpp"
 #include <list>
 #include <set>
-#include <chrono>
 #include <string>
 
-using minutes = std::chrono::seconds;   // To simulate time flow ;)
+
 
 class Pizza
 {

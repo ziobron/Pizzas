@@ -4,6 +4,8 @@
 #include "Pizzeria.hpp"
 #include "Margherita.hpp"
 #include "Funghi.hpp"
+#include "mocks/DummyClock.hpp"
+#include "Clock.hpp"
 
 using namespace std;
 using namespace ::testing;
@@ -11,7 +13,7 @@ using namespace ::testing;
 struct PizzeriaTest : public ::testing::Test
 {
 public:
-    Pizzeria pizzeria = Pizzeria("dummyName"); 
+    Pizzeria pizzeria = Pizzeria("dummyName", new DummyClock());
 };
 
 

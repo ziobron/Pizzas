@@ -3,10 +3,12 @@
 #include <algorithm>
 #include <thread>
 #include <iostream>
+#include "IClock.hpp"
 
-Pizzeria::Pizzeria(std::string const & name)
+Pizzeria::Pizzeria(std::string const & name, IClock* clock)
     : name_(name)
     , orders_()
+    , clock_(clock)
 {}
 
 int Pizzeria::makeOrder(Pizzas pizzas)
@@ -49,11 +51,15 @@ void Pizzeria::bakePizzas(int orderId)
         for (const auto & pizza : pizzas)
         {
             std::cout << "Baking " << pizza->getName() << std::endl;
-            std::this_thread::sleep_for(pizza->getBakingTime());
+
+            clock_->waitFor(pizza->getBakingTime());
         }
         std::get<Status>(*order) = Status::Baked;
     }
-    throw std::invalid_argument("Order with id: " + std::to_string(orderId) + "not found");
+    else
+    {
+        throw std::invalid_argument("Order with id: " + std::to_string(orderId) + "not found");
+    }
 }
 
 void Pizzeria::completeOrder(int orderId)
@@ -67,7 +73,10 @@ void Pizzeria::completeOrder(int orderId)
         std::cout << "Order " << orderId << " completed" << std::endl;
         std::get<Status>(*order) = Status::Completed;
     }
-    throw std::invalid_argument("Order with id: " + std::to_string(orderId) + "not found");
+    else
+    {
+        throw std::invalid_argument("Order with id: " + std::to_string(orderId) + "not found");
+    }
 }
 
 
