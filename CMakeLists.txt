@@ -44,6 +44,7 @@ set(SRC_LIST
     src/Margherita.cpp
     src/Funghi.cpp
     src/Pizzeria.cpp
+    src/Clock.cpp
 )
 
 include_directories(src)

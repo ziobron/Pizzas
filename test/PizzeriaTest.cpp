@@ -4,6 +4,7 @@
 #include "Pizzeria.hpp"
 #include "Margherita.hpp"
 #include "Funghi.hpp"
+#include "mocks/DummyClock.hpp"
 
 using namespace std;
 using namespace ::testing;
@@ -11,7 +12,12 @@ using namespace ::testing;
 struct PizzeriaTest : public ::testing::Test
 {
 public:
-    Pizzeria pizzeria = Pizzeria("dummyName"); 
+    MockClock* mock = new StrictMock<MockClock>{};
+    Pizzeria pizzeria = Pizzeria("dummyName", mock);
+
+    ~PizzeriaTest() {
+        delete mock;
+    }
 };
 
 
@@ -32,6 +38,7 @@ TEST_F(PizzeriaTest, bakeDummyPizza)
 {
     // Given
     Pizzas pizzas = {new PizzaDummy{}};
+    EXPECT_CALL(*mock, waitFor(_));
 
     // When
     auto orderId = pizzeria.makeOrder(pizzas);
@@ -42,6 +49,7 @@ TEST_F(PizzeriaTest, completeOrderWithStubPizza)
 {
     // Given
     Pizzas pizzas = {new PizzaStub{"STUB"}};
+    EXPECT_CALL(*mock, waitFor(minutes(1)));
 
     // When
     auto orderId = pizzeria.makeOrder(pizzas);
