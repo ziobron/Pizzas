@@ -1,10 +1,11 @@
 #include "Margherita.hpp"
 #include "Funghi.hpp"
 #include "Pizzeria.hpp"
-
+#include "RealSleep.hpp"
 int main()
 {
-    Pizzeria bravo("Bravo Pizza");
+    RealSleep r;
+    Pizzeria bravo("Bravo Pizza", r);
     Pizzas pizzas = {new Margherita{25.0}, new Funghi{30.0}};
 
     auto orderId = bravo.makeOrder(pizzas);

@@ -6,7 +6,7 @@ struct PizzaDummy : public Pizza
     PizzaDummy() : Pizza("dummy", 0.0, minutes(0)) {}
     std::string getName() const override { return "dummy"; }
     double getPrice() const override { return 0.0; }
-    minutes getBakingTime() const override { return minutes(0); }
+    minutes getBakingTime() const override { return minutes(10); }
 };
 
 struct PizzaStub : public Pizza
