@@ -4,14 +4,15 @@
 #include "Pizzeria.hpp"
 #include "Margherita.hpp"
 #include "Funghi.hpp"
+#include "mocks/SleepDummy.hpp"
 
 using namespace std;
 using namespace ::testing;
 
 struct PizzeriaTest : public ::testing::Test
 {
-public:
-    Pizzeria pizzeria = Pizzeria("dummyName"); 
+    SleepDummy sleepDummy;
+    Pizzeria pizzeria = Pizzeria("dummyName", sleepDummy); 
 };
 
 

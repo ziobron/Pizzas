@@ -20,7 +20,7 @@ struct PizzaStub : public Pizza
         else 
             return 10.0;
     }
-    minutes getBakingTime() const override { return minutes(1); }
+    minutes getBakingTime() const override { return minutes(10); }
 };
 
 struct PizzaMock : public Pizza

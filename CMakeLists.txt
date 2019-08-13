@@ -44,6 +44,7 @@ set(SRC_LIST
     src/Margherita.cpp
     src/Funghi.cpp
     src/Pizzeria.cpp
+    src/SleepReal.cpp
 )
 
 include_directories(src)
@@ -53,6 +54,7 @@ target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib pthread)
 
 set(TEST_SRC_LIST
     test/PizzeriaTest.cpp
+    test/mocks/SleepDummy.cpp
     test/test_main.cpp
 )
 
