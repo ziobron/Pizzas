@@ -5,6 +5,7 @@
 #include "Margherita.hpp"
 #include "Funghi.hpp"
 #include "mocks/SleepDummy.hpp"
+#include "mocks/SleepMock.hpp"
 
 using namespace std;
 using namespace ::testing;
@@ -12,7 +13,8 @@ using namespace ::testing;
 struct PizzeriaTest : public ::testing::Test
 {
     SleepDummy sleepDummy;
-    Pizzeria pizzeria = Pizzeria("dummyName", sleepDummy); 
+    StrictMock<SleepMock> sleepMock;
+    Pizzeria pizzeria = Pizzeria("dummyName", sleepMock); 
 };
 
 
@@ -33,7 +35,8 @@ TEST_F(PizzeriaTest, bakeDummyPizza)
 {
     // Given
     Pizzas pizzas = {new PizzaDummy{}};
-
+    EXPECT_CALL(sleepMock, sleep_for((*pizzas.begin())->getBakingTime()));
+    
     // When
     auto orderId = pizzeria.makeOrder(pizzas);
     pizzeria.bakePizzas(orderId);
@@ -42,7 +45,8 @@ TEST_F(PizzeriaTest, bakeDummyPizza)
 TEST_F(PizzeriaTest, completeOrderWithStubPizza)
 {
     // Given
-    Pizzas pizzas = {new PizzaStub{"STUB"}};
+    Pizzas pizzas = {new PizzaStub{"STUB"}}; 
+    EXPECT_CALL(sleepMock, sleep_for((*pizzas.begin())->getBakingTime()));
 
     // When
     auto orderId = pizzeria.makeOrder(pizzas);
